@@ -1,7 +1,7 @@
 import os
 import csv
 
-path = os.path.join("/Users/raghi/PycharmProjects/python-challenge/PyBank/Resource", "budget_data.csv")
+path = os.path.join("Resource", "budget_data.csv")
 
 # Read in the CSV file
 with open(path) as csvfile:
