@@ -26,6 +26,19 @@ with open(path) as csvfile:
             if winning_votes < candidate_dict[candidate]:
                 winning_votes = candidate_dict[candidate]
                 winner = candidate
+out_file_path = os.path.join("Resource", "election_result.txt")
+with open(out_file_path, "w") as out_file:
+    out_file.write("Election Results                    \n")
+    out_file.write("------------------------------------\n")
+    out_file.write("Total Votes: {}\n".format(total))
+    out_file.write("------------------------------------\n")
+
+    for name, votes in candidate_dict.items():
+        percentage = round((votes / total) * 100, 3)
+        out_file.write("{}: {}% ({})\n".format(name, percentage, votes))
+    out_file.write("------------------------------------\n")
+    out_file.write("Winner: {}\n".format(winner))
+    out_file.write("------------------------------------\n")
 
     print("Election Results                    ")
     print("------------------------------------")
