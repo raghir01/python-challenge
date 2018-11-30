@@ -35,6 +35,8 @@ with open(out_file_path, "w") as out_file:
 
     for name, votes in candidate_dict.items():
         percentage = round((votes / total) * 100, 3)
+        votes = sorted(percentage)
+        print votes
         out_file.write("{}: {}% ({})\n".format(name, percentage, votes))
     out_file.write("------------------------------------\n")
     out_file.write("Winner: {}\n".format(winner))
