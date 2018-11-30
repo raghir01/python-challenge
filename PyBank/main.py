@@ -12,19 +12,23 @@ with open(path) as csvfile:
 
     total_numof_months = 0
     net_amount = 0
+    diff_total = 0
+    diff_max = 0
+    diff_min = 0
+    prev_month_value = None
+    count = 0
     greatest_profit = 0
     greatest_loss = 0
     greatest_profit_month = ""
     greatest_loss_month = ""
-    prev_month_value = None
-    diff_total = 0
-    diff_max = 0.0
-    diff_min = 0.0
+
+
     for row in csvreader:
         total_numof_months += 1
         net_amount += float(row[1])
         if prev_month_value is not None:
             diff = float(row[1]) - prev_month_value
+            count += 1
             diff_total += diff
             if diff > diff_max:
                 diff_max = diff
@@ -44,19 +48,20 @@ with open(path) as csvfile:
 
 outfile_path = os.path.join("Resource", "budget_out.txt")
 with open(outfile_path, "w") as out_file:
-    out_file.write("                  Financial Analysis                  \n ")
+    out_file.write("Financial Analysis\n ")
     out_file.write("-------------------------------------------------------\n")
     out_file.write("Total Months: {}\n".format(total_numof_months))
     out_file.write("Total: ${}\n".format(round(net_amount, 2)))
-    out_file.write("Average  Change: ${}\n".format(round(diff_total / total_numof_months, 2)))
+    out_file.write("Average  Change: ${}\n".format(round(diff_total / count, 2)))
     out_file.write("Greatest Increase in Profits: {} (${})\n".format(greatest_profit_month, diff_max))
     out_file.write("Greatest Decrease in Profits: {} (${})\n".format(greatest_loss_month, diff_min))
 
-    print("                  Financial Analysis                   ")
+
+    print("Financial Analysis")
     print("-------------------------------------------------------")
     print("Total Months: {}".format(total_numof_months))
     print("Total: ${}".format(round(net_amount, 2)))
-    print("Average  Change: ${}".format(round(diff_total / total_numof_months, 2)))
+    print("Average  Change: ${}".format(round(diff_total / count, 2)))
     print("Greatest Increase in Profits: {} (${})".format(greatest_profit_month, diff_max))
     print("Greatest Decrease in Profits: {} (${})".format(greatest_loss_month, diff_min))
 
