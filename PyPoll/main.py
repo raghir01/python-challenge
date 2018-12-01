@@ -33,10 +33,11 @@ with open(out_file_path, "w") as out_file:
     out_file.write("Total Votes: {}\n".format(total))
     out_file.write("------------------------------------\n")
 
-    for name, votes in candidate_dict.items():
+    candidates = [(name, votes) for name, votes in candidate_dict.items()]
+    candidates = sorted(candidates, key=lambda x: x[1], reverse=True)
+
+    for name, votes in candidates:
         percentage = round((votes / total) * 100, 3)
-        votes = sorted(percentage)
-        print votes
         out_file.write("{}: {}% ({})\n".format(name, percentage, votes))
     out_file.write("------------------------------------\n")
     out_file.write("Winner: {}\n".format(winner))
@@ -47,7 +48,7 @@ with open(out_file_path, "w") as out_file:
     print("Total Votes: {}".format(total))
     print("------------------------------------")
 
-    for name, votes in candidate_dict.items():
+    for name, votes in candidates:
         percentage = round((votes / total) * 100, 3)
         print("{}: {}% ({})".format(name, percentage, votes))
     print("------------------------------------")
